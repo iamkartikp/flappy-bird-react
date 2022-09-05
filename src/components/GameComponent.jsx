@@ -1,6 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const GameComponent = () => {
+
+    let [score, setScore] = useState(0)
+    let [isGameOver, setGameOver] = useState(false)
 
     useEffect(() => {
         const bird = document.querySelector('.bird')
@@ -10,9 +13,7 @@ const GameComponent = () => {
         let birdLeft = 220
         let birdBottom = 100
         let gravity = 3
-        let isGameOver = false
         let gap = 430
-        let score = 0;
 
 
         function startGame() {
@@ -38,7 +39,7 @@ const GameComponent = () => {
             if (!isGameOver) {
                 obstacle.classList.add('obstacle')
                 topObstacle.classList.add('topObstacle')
-                score++
+                setScore(score++)
             }
             gameDisplay.appendChild(obstacle)
             gameDisplay.appendChild(topObstacle)
@@ -76,11 +77,11 @@ const GameComponent = () => {
 
         function gameOver() {
             clearInterval(gameTimerId)
-            isGameOver = true
+            setGameOver(true)
             document.removeEventListener('click', jump)
             ground.classList.add('ground')
             ground.classList.remove('ground-moving')
-            alert(`Game Over!! Score: ${Math.floor(score - 1)}`)
+            console.log(score-1)
         }
 
     }, [])
